@@ -23,10 +23,14 @@ const AddBookComponent = withFormik<MyFormProps, FormFields>({
             title: title,
             author: author
 
-        }).catch(error => { console.log(error) })
-        alert(JSON.stringify(`Book ${title} was added!`, null, 2))
-        props.history.push('/home')
-        setSubmitting(false)
+        }).then(() => {
+            alert(JSON.stringify(`Book ${title} was added!`, null, 2))
+            props.history.push('/home')
+            setSubmitting(false)
+        }).catch(err => {
+            console.log(err)
+        })
+
 
 
     }

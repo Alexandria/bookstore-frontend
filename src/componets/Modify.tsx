@@ -31,7 +31,7 @@ export class ModifyClass extends React.Component<MyProps, Data>{
                 this.setState({ book_id: res.book_id, title: res.title, author: res.author },
                     () => console.log('Modify', this.state)
                 )
-            })
+            }).catch(err => console.log(err))
         }
     }
 
@@ -49,10 +49,11 @@ export class ModifyClass extends React.Component<MyProps, Data>{
                     }).then(() => {
                         alert(JSON.stringify(`This book was modifed! Title:  ${values.title} Author : ${values.author}`, null, 2));
                         this.props.history.push('/home')
-                    })
-                    setTimeout(() => {
-                        actions.setSubmitting(false);
-                    }, 1000);
+                        setTimeout(() => {
+                            actions.setSubmitting(false);
+                        }, 1000);
+                    }).catch(err => console.log(err))
+
                 }}
                 render={props => (
 
