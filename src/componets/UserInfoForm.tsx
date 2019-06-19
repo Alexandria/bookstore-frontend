@@ -30,6 +30,7 @@ export const UserInfoForm = (props: FormikProps<FormFields>) => {
             <Field
                 type='submit'
                 value='Submit'
+                name='submit'
             />
 
         </form>

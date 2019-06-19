@@ -16,23 +16,28 @@ export const LoginComponent = withFormik<MyOtherProps, FormFields>({
 
     handleSubmit(
         { email, password }: FormFields,
-        { setSubmitting, props, setErrors }
+        { setSubmitting, props, resetForm }
     ) {
 
         axios.post("http://localhost:5006/auth/login", {
             email: email,
             password: password
         }).then(res => {
-            console.log('Response data ', res.data.token)
             const token = res.data.token
             localStorage.setItem('jwtToken', token)
             //here would be your function that checked for the token
             setAuthorization(token)
+            alert(JSON.stringify(`You are now logged under ${email}`, null, 2))
+            props.history.push('/home')
+            setSubmitting(false)
+        }).catch(err => {
+            alert(JSON.stringify(err.response.data.message))
+            setSubmitting(false)
+            resetForm()
         })
-        console.log(`Email: ${email} Password: ${password}`)
-        alert(JSON.stringify(`You are now logged under ${email}`, null, 2))
-        props.history.push('/home')
-        setSubmitting(false)
+
+
+
     }
 
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { withFormik } from 'formik'
 import { UserInfoForm, FormFields } from './UserInfoForm'
 import axios from 'axios'
@@ -11,23 +10,25 @@ const SignUpComponent = withFormik<MyOtherProps, FormFields>({
         email: "",
         password: ""
     }),
-
     handleSubmit(
         { email, password }: FormFields,
-        { setSubmitting, props, setErrors }
+        { setSubmitting, props, resetForm }
     ) {
-
         axios.post("http://localhost:5006/auth/signup", {
             email: email,
             password: password
+        }).then((res) => {
+            console.log(`Email: ${email} Password: ${password}`)
+            alert(JSON.stringify(res.data.message))
+            props.history.push('/home')
+            setSubmitting(false)
+        }).catch(err => {
+            alert(JSON.stringify(err.response.data.message))
+            setSubmitting(false)
+            resetForm()
         })
-        console.log(`Email: ${email} Password: ${password}`)
-        alert(JSON.stringify(`Welcome! You now have an account under ${email}`))
-        props.history.push('/home')
-        setSubmitting(false)
+
     }
-
-
 })(UserInfoForm)
 
 export const SignUp = withRouter(SignUpComponent) 

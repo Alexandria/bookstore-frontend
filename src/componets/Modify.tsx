@@ -38,7 +38,6 @@ export class ModifyClass extends React.Component<MyProps, Data>{
 
     renderForm() {
 
-
         return (
             <Formik
                 initialValues={{ title: this.state.title, author: this.state.author }}

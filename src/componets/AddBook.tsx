@@ -28,7 +28,9 @@ const AddBookComponent = withFormik<MyFormProps, FormFields>({
             props.history.push('/home')
             setSubmitting(false)
         }).catch(err => {
-            console.log(err)
+            alert(JSON.stringify(err.response.data.message))
+            props.history.push('/home')
+            setSubmitting(false)
         })
 
 
